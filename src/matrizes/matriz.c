@@ -28,8 +28,8 @@ Matriz *criaMatrizQuadrada(int ordemDaMatriz, double **termos){
     return matrizCriada;
 }
 
-//      Função definida para a criação de uma matriz identidade.
-Matriz *criaMatrizIdentidade(int ordemDaMatriz){
+//      Função definida para a criação de uma matriz nula (com todos os termos 0).
+Matriz *criaMatrizNula(int ordemDaMatriz){
 
     //      Aloca na memória a variavel dos termos da matriz.
     double **termos = criarVetor(ordemDaMatriz);
@@ -37,13 +37,28 @@ Matriz *criaMatrizIdentidade(int ordemDaMatriz){
     //      Preenche os termos.
     for(int i=0; i<ordemDaMatriz; i++){
         for(int j=0; j<ordemDaMatriz; j++){
-            termos[i][j] = (i==j)? 1:0;
+            termos[i][j] = 0;
         }
     }
 
     //      Retorna usando a função de criar uma matriz quadrada.
     return criaMatrizQuadrada(ordemDaMatriz, termos);
 
+}
+
+//      Função definida para a criação de uma matriz identidade.
+Matriz *criaMatrizIdentidade(int ordemDaMatriz){
+
+    //      Cria uma matriz nula
+    Matriz *matrizIdentidade = criaMatrizNula(ordemDaMatriz);
+
+    //      Coloca os valores 1 na diagonal principal
+    for(int i=0; i<ordemDaMatriz; i++){
+        matrizIdentidade->termo[i][i] = 1;
+    }
+
+    return matrizIdentidade;
+    
 }
 
 //      Função para copiar uma matriz

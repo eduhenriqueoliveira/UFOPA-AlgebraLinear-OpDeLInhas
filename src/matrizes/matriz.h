@@ -17,9 +17,11 @@ double **criarVetor(int ordemDaMatriz); // f
 
 Matriz *criaMatrizQuadrada(int ordemDaMatriz, double **termos); // f
 
+Matriz *criaMatrizNula(int ordemDaMatriz); // f
+
 Matriz *criaMatrizIdentidade(int ordemDaMatriz); // f
 
-Matriz *copiarMatriz(Matriz *matriz);
+Matriz *copiarMatriz(Matriz *matriz); // f
 
 //  Funções de operações de linha
 void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB); // f
