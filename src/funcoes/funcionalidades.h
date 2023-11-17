@@ -2,9 +2,15 @@
 #define FUNCIONALIDADES_H
 #include "../matrizes/matriz.h"
 
+void limpaTela(int so);
+
 void printDeMatriz(Matriz *matriz);
 
-void criacaoDeMatriz();
+void printSistemaOperacional();
+
+void printTelaA();
+
+void criacaoDeMatriz(int so);
 
 
 

@@ -1,30 +1,24 @@
 #include "funcoes/funcionalidades.h"
-#include "matrizes/matriz.h"
 #include <stdio.h>
 void main(){
-    int n = 2;
-    double vetorV[2][2] = {
-        {7, 4},
-        {9, -5}
-    };
-    double **vetor = criarVetor(n);
-    
-    for(int i=0;i<n;i++){
-        for(int j=0; j<n; j++){
-            vetor[i][j]=vetorV[i][j];
+    int so, code, condicao;
+
+    //      Sistema operacional é necessário para a função "limpaTela".
+    printSistemaOperacional();
+    scanf("%d", &so);
+    do{
+        limpaTela(so);
+        printTelaA();
+        scanf("%d", &code);
+        condicao = (1>=code && code>0);
+        if(condicao){
+            criacaoDeMatriz(so);
+        }else{
+            condicao = (code!=0);
+            if(condicao){
+                printf("\nDigite somente códigos válidos\n");
+            }
         }
-    }
 
-    Matriz *matriz = criaMatrizQuadrada(n, vetor);
-    Matriz *matrizInversa = criarMatrizInversa(matriz);
-    printf("\n");
-    printDeMatriz(matriz);
-    printf("\n");
-    printf("\n");
-    printDeMatriz(matrizInversa);
-    printf("\n");
-
-    liberaMatriz(matriz);
-    liberaMatriz(matrizInversa);
-
+    }while(condicao);
 }
