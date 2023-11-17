@@ -34,10 +34,10 @@ void main(){
             //      Caso não seja um código válido.
             if(condicao){
                 printf("\nDigite somente códigos válidos\n");
-                printf("\n<Pressione enter>\n");
-                getchar();
-                getchar();
             }
+            printf("\n<Pressione enter>\n");
+            getchar();
+            getchar();
         }
 
     }while(condicao);
