@@ -48,7 +48,6 @@ void printTelaA(){
     printf("\nInforme a ação desejada: \n");
     printf("(0) -> Finalizar execução\n");
     printf("(1) -> Cálcular matriz inversa\n");
-    printf("(2) -> Cálcular determinante\n");
     printf("Digite aqui a operação: ");
 }
 
