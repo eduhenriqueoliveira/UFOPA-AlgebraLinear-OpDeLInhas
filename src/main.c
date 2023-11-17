@@ -26,7 +26,7 @@ void main(){
 
         //      Caso seja de fato um código válido.
         if(condicao){
-            criacaoDeMatriz(so, code);
+            criacaoDeMatriz(so);
         }else{
 
             //      Caso o "code" seja 0, finaliza a execução.
