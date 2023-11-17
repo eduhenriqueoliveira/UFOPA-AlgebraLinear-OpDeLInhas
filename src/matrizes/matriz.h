@@ -30,4 +30,4 @@ Matriz *criarMatrizInversa(Matriz *matriz);
 
 void liberaMatriz(Matriz *matriz); // f
 
-#endif MATRIZ_H
+#endif

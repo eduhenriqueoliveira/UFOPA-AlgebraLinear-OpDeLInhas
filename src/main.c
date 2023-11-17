@@ -1,68 +1,40 @@
 #include <stdio.h>
+#include "matrizes/matriz.h"
 
-#define N 3
-
-void imprimirMatriz(double matriz[N][N]) {
-    int i, j;
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < N; j++) {
-            printf("%.2f ", matriz[i][j]);
+void printDeMatriz(Matriz *matriz){
+    int ordem = matriz->ordem;
+    for(int i=0;i<ordem;i++){
+        for(int j=0; j<ordem;j++){
+            printf("%.2lf ", matriz->termo[i][j]);
         }
         printf("\n");
     }
     printf("\n");
 }
 
-void imprimirMatrizInversa(double matriz[N][N]) {
-    int i, j;
-    for (i = 0; i < N; i++) {
-        for (j = 0; j < N; j++) {
-            printf("%.2f ", matriz[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
-void gaussJordan(double matriz[N][N]) {
-    int i, j, k;
-    double pivo;
-
-    // Fase de eliminação
-    for (i = 0; i < N; i++) {
-        pivo = matriz[i][i];
-
-        // Normalizar a linha atual
-        for (j = 0; j < N; j++) {
-            matriz[i][j] /= pivo;
-        }
-
-        // Eliminar outras linhas
-        for (k = 0; k < N; k++) {
-            if (k != i) {
-                pivo = matriz[k][i];
-                for (j = 0; j < N; j++) {
-                    matriz[k][j] -= pivo * matriz[i][j];
-                }
-            }
-        }
-    }
-}
-
-int main() {
-    double matriz[N][N] = {
-        {1, 2, 3},
-        {2, 5, 3},
-        {1, 0, 0}
+void main(){
+    double vetorV[2][2] = {
+        {3, -1},
+        {2, -1}
     };
+    double **vetor = criarVetor(2);
+    
+    for(int i=0;i<2;i++){
+        for(int j=0; j<2;j++){
+            vetor[i][j]=vetorV[i][j];
+        }
+    }
 
-    printf("Matriz original:\n");
-    imprimirMatriz(matriz);
+    Matriz *matriz = criaMatrizQuadrada(2, vetor);
+    Matriz *matrizInversa = criarMatrizInversa(matriz);
+    printf("\n");
+    printDeMatriz(matriz);
+    printf("\n");
+    printf("\n");
+    printDeMatriz(matrizInversa);
+    printf("\n");
 
-    gaussJordan(matriz);
+    liberaMatriz(matriz);
+    liberaMatriz(matrizInversa);
 
-    printf("Matriz inversa:\n");
-    imprimirMatrizInversa(matriz + 0*N);
-
-    return 0;
 }

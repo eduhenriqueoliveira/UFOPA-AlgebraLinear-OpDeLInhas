@@ -1,4 +1,4 @@
-#include <matriz.h>
+#include "matriz.h"
 #include <stdlib.h>
 
 //      Função para alocar dinamicamente o vetor dos termos da matriz.
@@ -50,9 +50,9 @@ Matriz *criaMatrizIdentidade(int ordemDaMatriz){
 Matriz *copiarMatriz(Matriz *matriz){
     
     //      Copia os termos
-    int **termosCopiados = criarVetor(matriz->ordem);
+    double **termosCopiados = criarVetor(matriz->ordem);
     for(int i=0; i<matriz->ordem; i++){
-        for(int j=0; matriz->ordem; j++){
+        for(int j=0; j<matriz->ordem; j++){
             termosCopiados[i][j] = matriz->termo[i][j];
         }
     }
