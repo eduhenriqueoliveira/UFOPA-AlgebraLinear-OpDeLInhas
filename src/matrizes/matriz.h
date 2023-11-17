@@ -19,6 +19,8 @@ Matriz *criaMatrizQuadrada(int ordemDaMatriz, double **termos); // f
 
 Matriz *criaMatrizIdentidade(int ordemDaMatriz); // f
 
+Matriz *copiarMatriz(Matriz *matriz);
+
 //  Funções de operações de linha
 void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB); // f
 void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha); // f

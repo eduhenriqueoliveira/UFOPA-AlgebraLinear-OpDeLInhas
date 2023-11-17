@@ -46,6 +46,20 @@ Matriz *criaMatrizIdentidade(int ordemDaMatriz){
 
 }
 
+//      Função para copiar uma matriz
+Matriz *copiarMatriz(Matriz *matriz){
+    
+    //      Copia os termos
+    int **termosCopiados = criarVetor(matriz->ordem);
+    for(int i=0; i<matriz->ordem; i++){
+        for(int j=0; matriz->ordem; j++){
+            termosCopiados[i][j] = matriz->termo[i][j];
+        }
+    }
+
+    return criaMatrizQuadrada(matriz->ordem, termosCopiados);
+}
+
 //      Função para substituir entre si os valores de duas linhas.
 void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB){
     
@@ -84,7 +98,63 @@ void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar){
 
 // todo: Função para calcular a matriz inversa de uma dada matriz, utilizando operações de linha
 Matriz *criarMatrizInversa(Matriz *matriz){
-    return NULL;
+    
+    /*
+        Dividido em x partes
+            1- Criar a matriz identidade
+    
+    */
+
+    Matriz *matrizTemporaria = copiarMatriz(matriz);
+    Matriz *matrizIdentidade = criaMatrizIdentidade(matriz->ordem);
+    
+    double pivo, temp;
+    int i, j, k;
+
+    // ! LEMBRETE: AO USAR OPERAÇÃO DE LINHA, USA-SE NA MATRIZTEMPORARIA E NA MATRIZ IDENTIDADE UMA DEPOIS DA OUTRA
+
+    //      Normalização dos pivôs e de suas linhas
+    for(i=0; i<matriz->ordem; i++){
+        
+        //      Seleciona o pivô da linha
+        pivo = matrizTemporaria->termo[i][i];
+
+        //      Verifica se o pivô é 0, 
+        //      se for: procura por outra linha na coluna com um valor diferente de 0 e depois soma-se essas linhas
+        if(pivo==0){
+            temp = pivo;
+            for(j=0; j<matriz->ordem && temp==0; j++){
+                temp = matrizTemporaria->termo[j][i];
+            }
+            
+            //      Verifica se há realmente outro valor não-nulo naquela coluna
+            if(temp!=0){
+                somaLinha(matrizTemporaria, i, j, 1);
+                somaLinha(matrizIdentidade, i, j, 1);
+            }
+            //      Se for uma coluna com valores nulos, ele simplesmente passa para a próxima iteração
+            else{
+                continue;
+            }
+
+        }
+
+        //      Divide a linha inteira pelo pivô
+        multiplicaLinha(matrizTemporaria, 1/pivo, i);
+        multiplicaLinha(matrizIdentidade, 1/pivo, i);
+
+        //      Eliminação das linhas inferiores e superiores
+        for(j=0; j<matriz->ordem; j++){
+            if(j!=i){
+                somaLinha(matrizTemporaria,j, i, matrizTemporaria->termo[j][i]);
+                somaLinha(matrizIdentidade,j, i, matrizIdentidade->termo[j][i]);
+            }
+        }
+
+    }
+
+    liberaMatriz(matrizTemporaria);
+    return matrizIdentidade;
 }
 
 //      Função para liberar os valores alocados dinamicamente na memória
