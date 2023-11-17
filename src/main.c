@@ -1,3 +1,4 @@
+#include "matrizes/matriz.h"
 #include "funcoes/funcionalidades.h"
 #include <stdio.h>
 void main(){
@@ -25,7 +26,7 @@ void main(){
 
         //      Caso seja de fato um código válido.
         if(condicao){
-            criacaoDeMatriz(so);
+            criacaoDeMatriz(so, code);
         }else{
 
             //      Caso o "code" seja 0, finaliza a execução.

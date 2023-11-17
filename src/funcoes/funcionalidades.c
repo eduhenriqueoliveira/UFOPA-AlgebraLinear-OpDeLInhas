@@ -48,10 +48,11 @@ void printTelaA(){
     printf("\nInforme a ação desejada: \n");
     printf("(0) -> Finalizar execução\n");
     printf("(1) -> Cálcular matriz inversa\n");
+    printf("(2) -> Cálcular determinante\n");
     printf("Digite aqui a operação: ");
 }
 
-//      Função definida para o processo de criação de matriz e o cálculo de sua inversa.
+//      Função definida para o processo de criação de matriz e do cálculo desejado.
 void criacaoDeMatriz(int so){
 
     limpaTela(so);
@@ -63,7 +64,6 @@ void criacaoDeMatriz(int so){
     scanf("%d", &ordem);
 
     Matriz *matriz = criaMatrizNula(ordem);
-    Matriz *matrizInversa;
 
     for(int i=0; i<ordem; i++){
         for(int j=0; j<ordem; j++){
@@ -76,20 +76,28 @@ void criacaoDeMatriz(int so){
         }
     }
 
-    matrizInversa = criarMatrizInversa(matriz);
-
     limpaTela(so);
+
     printf("\nMatriz original: \n");
     printDeMatriz(matriz);
 
-    printf("\nMatriz Inversa: \n");
-    printDeMatriz(matrizInversa);
+    double det = calcularDeterminante(matriz);
+    printf("\nDeterminante: %.3lf", det);
+
+    if(det!=0){
+        Matriz *matrizInversa = criarMatrizInversa(matriz);
+        printf("\nMatriz Inversa: \n");
+        printDeMatriz(matrizInversa);
+        liberaMatriz(matrizInversa);
+    }else{
+        printf("\nMatriz não é invertivel\n");
+    }
 
     printf("\n\n<Pressione enter>\n");
     getchar();
     getchar();
 
     liberaMatriz(matriz);
-    liberaMatriz(matrizInversa);
+
 
 }

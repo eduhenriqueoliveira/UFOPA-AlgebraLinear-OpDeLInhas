@@ -33,6 +33,9 @@ void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB);
 void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha);
 void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar);
 
+double determinante(Matriz *matrizCopiada);
+double calcularDeterminante(Matriz *matriz);
+
 Matriz *criarMatrizInversa(Matriz *matriz);
 
 void liberaMatriz(Matriz *matriz);

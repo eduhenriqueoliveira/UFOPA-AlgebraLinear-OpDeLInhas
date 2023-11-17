@@ -1,5 +1,6 @@
 #include "matriz.h"
 #include <stdlib.h>
+#include <math.h>
 
 //      Função para alocar dinamicamente o vetor dos termos da matriz.
 double **criarVetor(int ordemDaMatriz){
@@ -111,9 +112,81 @@ void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar){
 
 }
 
+//      Função para calcular o determinante de uma dada matriz.
+//          Feito de forma recursiva pelo método de coeficiente expandido, até ter matrizes menores de ordem 2
+double determinante(Matriz *matrizCopiada){
+
+    //      Declarando a variavel do determinante.
+    double det = 0.0;
+
+    //      Checa se a matriz é de ordem 2, e faz a conta de seu determinante
+    //!     Importante: Aqui é o ponto onde a função sairá da recursividade
+    if(matrizCopiada->ordem==2) {
+        det += matrizCopiada->termo[0][0] * matrizCopiada->termo[1][1];
+        det -= matrizCopiada->termo[1][0] * matrizCopiada->termo[0][1];
+    }else{
+
+        //      Caso a matriz informada seja maior que 2, usa-se o método
+        int m, n;
+        double cof, **termos;
+
+        //      A linha selecionada para o método SEMPRE será a primeira.
+        //      A partir dela cria-se matrizes menores, recursivamente encontrando seus determinantes.
+        for(int k=0; k<matrizCopiada->ordem; k++) {
+
+            /*
+             *      m -> Linhas da submatriz
+             *      n -> Coluna da submatriz
+             * */
+            m=1;
+            n=0;
+
+            //      Cria-se um subvetor com ordem-1
+            termos = criarVetor((matrizCopiada->ordem)-1);
+
+            //      Copia os termos corretos no subvetor
+            for(int i=0; i<(matrizCopiada->ordem)-1; i++){
+                for(int j=0; j<(matrizCopiada->ordem)-1; j++){
+                    if(n==k) n++;
+                    termos[i][j] = matrizCopiada->termo[m][n];
+                    n++;
+                }
+                m++;
+                n=0;
+            }
+
+            //      Cria uma outra matriz, chamada "auxMatriz" com os novos valores
+            Matriz *auxMatriz = criaMatrizQuadrada(matrizCopiada->ordem-1, termos);
+
+            //      Calcula o cofator
+            //      O cálculo do determinante da "auxMatriz" é feito de forma recursiva, até chegar em uma matriz de ordem 2
+            cof = determinante(auxMatriz);
+            cof *= pow(-1, 2+k);
+
+            //      Soma-se o determinante com o produto entre o termo e o cofator
+            det += cof*matrizCopiada->termo[0][k];
+
+        }
+    }
+
+    //      Libera na memória a matriz
+    //      Não há a necessidade de liberar o "auxMatriz", visto que ele mesmo se libera na ultima iteração
+    liberaMatriz(matrizCopiada);
+    return det;
+}
+
+double calcularDeterminante(Matriz *matriz){
+    Matriz *matrizCopiada = copiarMatriz(matriz);
+    return determinante(matrizCopiada);
+}
+
 //      Função para calcular a matriz inversa de uma dada matriz, utilizando operações de linha.
 Matriz *criarMatrizInversa(Matriz *matriz){
-    
+
+    //      Checar se o determinante da matriz é igual a 0, se for, retorna null pois a matriz é invertivel
+    if(calcularDeterminante(matriz)==0)
+        return NULL;
+
     /*
      *  Pela fórmular:
      *      [A|I]
