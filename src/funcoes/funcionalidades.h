@@ -2,6 +2,8 @@
 #define FUNCIONALIDADES_H
 #include "../matrizes/matriz.h"
 
+//      Declarações das funcionalidades básicas
+
 void limpaTela(int so);
 
 void printDeMatriz(Matriz *matriz);

@@ -49,10 +49,10 @@ Matriz *criaMatrizNula(int ordemDaMatriz){
 //      Função definida para a criação de uma matriz identidade.
 Matriz *criaMatrizIdentidade(int ordemDaMatriz){
 
-    //      Cria uma matriz nula
+    //      Cria uma matriz nula.
     Matriz *matrizIdentidade = criaMatrizNula(ordemDaMatriz);
 
-    //      Coloca os valores 1 na diagonal principal
+    //      Coloca os valores 1 na diagonal principal.
     for(int i=0; i<ordemDaMatriz; i++){
         matrizIdentidade->termo[i][i] = 1;
     }
@@ -61,10 +61,10 @@ Matriz *criaMatrizIdentidade(int ordemDaMatriz){
     
 }
 
-//      Função para copiar uma matriz
+//      Função para copiar uma matriz.
 Matriz *copiarMatriz(Matriz *matriz){
     
-    //      Copia os termos
+    //      Copia os termos.
     double **termosCopiados = criarVetor(matriz->ordem);
     for(int i=0; i<matriz->ordem; i++){
         for(int j=0; j<matriz->ordem; j++){
@@ -79,8 +79,8 @@ Matriz *copiarMatriz(Matriz *matriz){
 void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB){
     
     /*  
-        Efetua substituição
-        Lógica padrão de substituição
+            Efetua substituição.
+        Lógica padrão de substituição:
      !      temporario = a
      !               a = b
      !               b = temporario
@@ -106,7 +106,7 @@ void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha){
 //      A linha "A" será onde ficará o resultado da soma.
 void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar){
 
-    //      Laço de repetição para a soma
+    //      Laço de repetição para a soma.
     for(int j=0; j<matriz->ordem; j++){
         double a=matriz->termo[idxLinhaA][j],
                b=matriz->termo[idxLinhaB][j];
@@ -116,54 +116,55 @@ void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar){
 
 }
 
-// todo: Função para calcular a matriz inversa de uma dada matriz, utilizando operações de linha
+//      Função para calcular a matriz inversa de uma dada matriz, utilizando operações de linha.
 Matriz *criarMatrizInversa(Matriz *matriz){
     
     /*
-        Dividido em x partes
-            1- Criar a matriz identidade
-    
-    */
+     *  Pela fórmular:
+     *      [A|I]
+     *        |
+     *        v
+     *      [I|A⁻¹]
+     *  Código cálcula esse processo por operações de linha.
+     */
 
     Matriz *matrizTemporaria = copiarMatriz(matriz);
     Matriz *matrizIdentidade = criaMatrizIdentidade(matriz->ordem);
     
     double pivo, temp;
-    int i, j, k;
+    int i, j;
 
-    // ! LEMBRETE: AO USAR OPERAÇÃO DE LINHA, USA-SE NA MATRIZTEMPORARIA E NA MATRIZ IDENTIDADE UMA DEPOIS DA OUTRA
-
-    //      Normalização dos pivôs e de suas linhas
+    //      Normalização dos pivôs e de suas linhas.
     for(i=0; i<matriz->ordem; i++){
         
-        //      Seleciona o pivô da linha
+        //      Seleciona o pivô da linha.
         pivo = matrizTemporaria->termo[i][i];
 
         //      Verifica se o pivô é 0, 
-        //      se for: procura por outra linha na coluna com um valor diferente de 0 e depois soma-se essas linhas
+        //      se for: procura por outra linha na coluna com um valor diferente de 0 e depois soma-se essas linhas.
         if(pivo==0){
             temp = pivo;
             for(j=0; j<matriz->ordem && temp==0; j++){
                 temp = matrizTemporaria->termo[j][i];
             }
             
-            //      Verifica se há realmente outro valor não-nulo naquela coluna
+            //      Verifica se há realmente outro valor não-nulo naquela coluna.
             if(temp!=0){
                 somaLinha(matrizTemporaria, i, j, 1);
                 somaLinha(matrizIdentidade, i, j, 1);
             }
-            //      Se for uma coluna com valores nulos, ele simplesmente passa para a próxima iteração
+            //      Se for uma coluna com valores nulos, ele simplesmente passa para a próxima iteração.
             else{
                 continue;
             }
 
         }
 
-        //      Divide a linha inteira pelo pivô
+        //      Divide a linha inteira pelo pivô.
         multiplicaLinha(matrizTemporaria, 1/pivo, i);
         multiplicaLinha(matrizIdentidade, 1/pivo, i);
 
-        //      Eliminação das linhas inferiores e superiores
+        //      Eliminação das linhas inferiores e superiores.
         for(j=0; j<matriz->ordem; j++){
             if(j!=i){
                 pivo=-matrizTemporaria->termo[j][i];
@@ -175,19 +176,21 @@ Matriz *criarMatrizInversa(Matriz *matriz){
     }
 
     liberaMatriz(matrizTemporaria);
+
+    //      Retorna o que inicialmente era a matriz identidade, pois ela "se torna" a matriz inversa.
     return matrizIdentidade;
 }
 
-//      Função para liberar os valores alocados dinamicamente na memória
+//      Função para liberar os valores alocados dinamicamente na memória.
 void liberaMatriz(Matriz *matriz){
     
-    //      Liberação do vetor de termos
+    //      Liberação do vetor de termos.
     for(int i=0; i<matriz->ordem; i++){
         free(matriz->termo[i]);
     }
     free(matriz->termo);
 
-    //      Liberação da struct matriz
+    //      Liberação da struct matriz.
     free(matriz);
 }
 

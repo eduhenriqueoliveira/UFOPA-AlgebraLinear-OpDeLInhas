@@ -1,6 +1,11 @@
 #ifndef MATRIZ_H
 #define MATRIZ_H
 
+//      Definição da struct da matriz
+/*
+ *       ordem  -> Dado para guardar a ordem da matriz
+ *      **termo -> Vetor de duas dimensões para guardar os termos
+ * */
 typedef struct matriz_de_ordem_N{
     int ordem;
     double **termo;
@@ -13,23 +18,23 @@ typedef struct matriz_de_ordem_N{
  !           Cálculo de matriz inversa usando matriz identidade e operações de linha
  */
 
-double **criarVetor(int ordemDaMatriz); // f
+double **criarVetor(int ordemDaMatriz);
 
-Matriz *criaMatrizQuadrada(int ordemDaMatriz, double **termos); // f
+Matriz *criaMatrizQuadrada(int ordemDaMatriz, double **termos);
 
-Matriz *criaMatrizNula(int ordemDaMatriz); // f
+Matriz *criaMatrizNula(int ordemDaMatriz);
 
-Matriz *criaMatrizIdentidade(int ordemDaMatriz); // f
+Matriz *criaMatrizIdentidade(int ordemDaMatriz);
 
-Matriz *copiarMatriz(Matriz *matriz); // f
+Matriz *copiarMatriz(Matriz *matriz);
 
 //  Funções de operações de linha
-void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB); // f
-void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha); // f
-void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar); // f
+void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB);
+void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha);
+void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar);
 
 Matriz *criarMatrizInversa(Matriz *matriz);
 
-void liberaMatriz(Matriz *matriz); // f
+void liberaMatriz(Matriz *matriz);
 
 #endif

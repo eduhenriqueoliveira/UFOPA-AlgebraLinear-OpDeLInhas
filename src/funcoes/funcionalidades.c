@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include "funcionalidades.h"
 
+//      Função definida para limpar a tela do terminal.
 void limpaTela(int so){
+
+    //      Checa o sistema operacional a partir da entrada do usuário.
     if(so==1) {
         system("cls");
     }else{
@@ -10,6 +13,7 @@ void limpaTela(int so){
     }
 }
 
+//      Função definida para imprimir uma matriz.
 void printDeMatriz(Matriz *matriz){
     int ordem = matriz->ordem;
     printf("\n---");
@@ -31,6 +35,7 @@ void printDeMatriz(Matriz *matriz){
     printf("---\n");
 }
 
+//      Função definida para imprimir a tela de seleção de sistema operacional.
 void printSistemaOperacional(){
     printf("\nInforme o sistema operacional: \n");
     printf("(1) -> Windows \n");
@@ -38,6 +43,7 @@ void printSistemaOperacional(){
     printf("Código do sistema: ");
 }
 
+//      Função definida para imprimir tela principal;
 void printTelaA(){
     printf("\nInforme a ação desejada: \n");
     printf("(0) -> Finalizar execução\n");
@@ -45,11 +51,14 @@ void printTelaA(){
     printf("Digite aqui a operação: ");
 }
 
-
+//      Função definida para o processo de criação de matriz e o cálculo de sua inversa.
 void criacaoDeMatriz(int so){
+
     limpaTela(so);
+
     int ordem;
     double inpt;
+
     printf("Digite a ordem da matriz: ");
     scanf("%d", &ordem);
 
@@ -79,6 +88,7 @@ void criacaoDeMatriz(int so){
     printf("\n\n<Pressione enter>\n");
     getchar();
     getchar();
+
     liberaMatriz(matriz);
     liberaMatriz(matrizInversa);
 
