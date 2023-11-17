@@ -1,24 +1,11 @@
-#include <stdio.h>
-#include <math.h>
+#include "funcoes/funcionalidades.h"
 #include "matrizes/matriz.h"
-
-void printDeMatriz(Matriz *matriz){
-    int ordem = matriz->ordem;
-    for(int i=0;i<ordem;i++){
-        for(int j=0; j<ordem;j++){
-            printf("%2lf ", matriz->termo[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
+#include <stdio.h>
 void main(){
-    int n = 3;
-    double vetorV[3][3] = {
-        {1, 2, 3},
-        {2, 0, 3},
-        {1, 5, 8}
+    int n = 2;
+    double vetorV[2][2] = {
+        {7, 4},
+        {9, -5}
     };
     double **vetor = criarVetor(n);
     
