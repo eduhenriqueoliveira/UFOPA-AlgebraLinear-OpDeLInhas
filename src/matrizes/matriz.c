@@ -79,8 +79,8 @@ Matriz *copiarMatriz(Matriz *matriz){
 void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB){
     
     /*  
-            Efetua substituição.
-        Lógica padrão de substituição:
+     *       Efetua substituição.
+     *   Lógica padrão de substituição:
      !      temporario = a
      !               a = b
      !               b = temporario
@@ -92,11 +92,9 @@ void moveLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB){
 
 //      Função para realizar a operação de linha de multiplicar uma linha por um escalar.
 void multiplicaLinha(Matriz *matriz, double escalar, int idxLinha){
-    double a;
+
     //      Laço de repetição para multiplicar uma linha inteira da matriz.
     for(int j=0; j<matriz->ordem; j++){
-        a=matriz->termo[idxLinha][j];
-        a*=escalar;
         matriz->termo[idxLinha][j] *= escalar;
     }
 
@@ -108,9 +106,6 @@ void somaLinha(Matriz *matriz, int idxLinhaA, int idxLinhaB, double escalar){
 
     //      Laço de repetição para a soma.
     for(int j=0; j<matriz->ordem; j++){
-        double a=matriz->termo[idxLinhaA][j],
-               b=matriz->termo[idxLinhaB][j];
-               a+=b*escalar;
         matriz->termo[idxLinhaA][j] += (matriz->termo[idxLinhaB][j]*escalar);
     }
 
@@ -148,7 +143,7 @@ Matriz *criarMatrizInversa(Matriz *matriz){
                 temp = matrizTemporaria->termo[j][i];
             }
             
-            //      Verifica se há realmente outro valor não-nulo naquela coluna.
+            //      Verifica se há realmente outro valor não nulo naquela coluna.
             if(temp!=0){
                 somaLinha(matrizTemporaria, i, j, 1);
                 somaLinha(matrizIdentidade, i, j, 1);
