@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "funcionalidades.h"
 
 //      Função definida para limpar a tela do terminal.
@@ -56,24 +57,44 @@ void criacaoDeMatriz(int so){
 
     limpaTela(so);
 
-    int ordem;
+    int ordem, cond;
     double inpt;
 
     printf("Digite a ordem da matriz: ");
     scanf("%d", &ordem);
-
     Matriz *matriz = criaMatrizNula(ordem);
 
-    for(int i=0; i<ordem; i++){
-        for(int j=0; j<ordem; j++){
-            limpaTela(so);
-            printDeMatriz(matriz);
-            printf("\nDigite o valor do termo A%d%d: ", i+1, j+1);
-            scanf("%lf", &inpt);
-            matriz->termo[i][j] = inpt;
+    printf("\nDeseja que os valores sejam armazenados de forma aleatória?\n");
+    printf("\n(1) -> Sim\n(2) -> Não\n");
+    scanf("%d", &cond);
 
-        }
+    if(cond){
+        srand((unsigned int)time(0));
     }
+    do{
+        for(int i=0; i<ordem; i++){
+            for(int j=0; j<ordem; j++){
+                if(cond){
+                    inpt = (rand()%10) +1;
+                }else{
+                    limpaTela(so);
+                    printDeMatriz(matriz);
+                    printf("\nDigite o valor do termo A%d%d: ", i+1, j+1);
+                    scanf("%lf", &inpt);
+                }
+
+                matriz->termo[i][j] = inpt;
+
+            }
+        }
+        printf("\nMatriz gerada: \n");
+        printDeMatriz(matriz);
+        printf("\nDeseja continuar com essa matriz? (Selecionar não irá gerar uma nova)\n");
+        printf("(1) -> Sim\n(2) -> Não\nDigite e aperte enter: ");
+        scanf("%d", &cond);
+        cond = (cond==1)? 0:1;
+        cond=0;
+    }while(cond);
 
     limpaTela(so);
 
