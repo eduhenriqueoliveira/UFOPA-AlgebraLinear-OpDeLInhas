@@ -1,4 +1,5 @@
 bin/
+.makefile.swp
 .vscode
 CMakeLists.txt
 cmake-build-debug/
