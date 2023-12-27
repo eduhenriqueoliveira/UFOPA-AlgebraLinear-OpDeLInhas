@@ -29,12 +29,12 @@ COMPILE = gcc
 
 # Flags
 #FLAGS = -c -W -Wall -ansi -pedantic -g -lm
-FLAGS = -c -g -lm 
+FLAGS = -c -g -lm
 
 all: $(NOME_MAIN) clean
 
 $(NOME_MAIN): $(OBJETOS)
-	$(COMPILE) $^ -o $(PASTA_BIN)/$@ -lm
+	$(COMPILE) $^ -o $(PASTA_BIN)/$@ -lm -g
 
 ./obj/%.o: ./src/%.c
 	$(COMPILE) $^ $(FLAGS) -o $@
