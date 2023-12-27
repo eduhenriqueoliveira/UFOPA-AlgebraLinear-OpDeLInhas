@@ -28,7 +28,6 @@ $(foreach diretorio, $(DIRETORIOS_DE_OBJETOS), $(shell mkdir -p $(diretorio)))
 COMPILE = gcc
 
 # Flags
-#FLAGS = -c -W -Wall -ansi -pedantic -g -lm
 FLAGS = -c -g -lm
 
 all: $(NOME_MAIN) clean
